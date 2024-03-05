@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\buildMultiTargeting\AudioPlayerBlazor.props" />
+</Project>

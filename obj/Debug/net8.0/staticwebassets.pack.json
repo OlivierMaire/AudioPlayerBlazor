@@ -5,6 +5,10 @@
       "PackagePath": "staticwebassets\\AudioPlayerBlazor.bundle.scp.css"
     },
     {
+      "Id": "C:\\Users\\Fuyuki\\src\\calibre-net\\AudioPlayerBlazor\\wwwroot\\AudioPlayerBlazorInterop.js",
+      "PackagePath": "staticwebassets\\AudioPlayerBlazorInterop.js"
+    },
+    {
       "Id": "C:\\Users\\Fuyuki\\src\\calibre-net\\AudioPlayerBlazor\\wwwroot\\background.png",
       "PackagePath": "staticwebassets\\background.png"
     },

@@ -1,0 +1,23 @@
+@inject QueuePlayerService service
+
+<div>
+    <ul>
+        @foreach (var q in service.Queue)
+        {
+            <li>@q.Title</li>
+        }
+    </ul>
+</div>
+
+@code {
+
+    override protected async Task OnInitializedAsync()
+    {
+        service.OnQueueChanged += QueueChanged;
+    }
+
+    private void QueueChanged()
+    {
+        StateHasChanged();
+    }
+}

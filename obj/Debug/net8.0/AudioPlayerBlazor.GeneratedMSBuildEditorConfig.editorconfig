@@ -18,14 +18,30 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor
 build_property._RazorSourceGeneratorDebug = 
 
-[C:/Users/Fuyuki/src/calibre-net/AudioPlayerBlazor/AudioPlayerBlazor.razor]
-build_metadata.AdditionalFiles.TargetPath = QXVkaW9QbGF5ZXJCbGF6b3IucmF6b3I=
+[C:/Users/Fuyuki/src/calibre-net/AudioPlayerBlazor/Components/Player.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xQbGF5ZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Fuyuki/src/calibre-net/AudioPlayerBlazor/Components/Queue.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xRdWV1ZS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Fuyuki/src/calibre-net/AudioPlayerBlazor/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Fuyuki/src/calibre-net/AudioPlayerBlazor/AudioPlayer.razor]
+build_metadata.AdditionalFiles.TargetPath = QXVkaW9QbGF5ZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-1xonyq3ojm
+
 [C:/Users/Fuyuki/src/calibre-net/AudioPlayerBlazor/Component1.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50MS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-1hum7gz6w2
+
+[C:/Users/Fuyuki/src/calibre-net/AudioPlayerBlazor/Components/ModeSelector.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50c1xNb2RlU2VsZWN0b3IucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-obroq4zn3s
+
+[C:/Users/Fuyuki/src/calibre-net/AudioPlayerBlazor/PlayerDisplay.razor]
+build_metadata.AdditionalFiles.TargetPath = UGxheWVyRGlzcGxheS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = b-7pfkqmn6q6

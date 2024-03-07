@@ -8,6 +8,6 @@
 
 using System.Reflection;
 
-[assembly: AssemblyFileVersion("0.2.0.0")]
-[assembly: AssemblyVersion("0.2.0.0")]
-[assembly: AssemblyInformationalVersion("0.2.0-audioplayer.1+34.Branch.feature-audioplayer.Sha.247bfa22c148765ba4a6c597246be1670171cc4b")]
+[assembly: AssemblyFileVersion("0.1.0.0")]
+[assembly: AssemblyVersion("0.1.0.0")]
+[assembly: AssemblyInformationalVersion("0.1.0+1.Branch.main.Sha.8ad38b6fd38330c3f2f022529df33be71546ed00")]

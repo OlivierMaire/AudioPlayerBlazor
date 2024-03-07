@@ -1,0 +1,107 @@
+@inject MediaPlayerService playerService
+@inject QueuePlayerService queueService
+
+<audio controls id="audio-player-blazor-html5">
+    <source src="" type="" />
+</audio>
+
+@playerService.CurrentTime
+<div class="player">
+    @if (File != null && File.Chapters != null)
+    {
+        <div class="currently-playing">
+
+            @foreach (var c in File.Chapters)
+            {
+                <div @onclick="async () => await GoToChapter(c)">@c.Title</div>
+            }
+        </div>
+    }
+
+    <div class="controls">
+        <div @onclick="OnPlayPause">@PlayPauseState</div>
+        <div>progress</div>
+        <div>title</div>
+        <div>volume</div>
+        <div>next</div>
+        <div>previous</div>
+        <div @onclick="Next30s">next 30sec</div>
+        <div @onclick="Prev30s">previous 30sec</div>
+        <div>Playlist</div>
+    </div>
+</div>
+
+@code {
+
+    AudioMetadata? File;
+    string PlayPauseState = "Play";
+
+    uint CurrentTime { get; set; } = 0;
+
+    async Task OnPlayPause()
+    {
+        if (PlayPauseState == "Play")
+        {
+            // start to play
+            if (File != null)
+            {
+                await playerService.Play(File);
+                PlayPauseState = "Pause";
+            }
+
+        }
+        else
+        {
+            // pause playing
+            await playerService.Pause();
+            PlayPauseState = "Play";
+
+        }
+
+
+    }
+
+    async Task GoToChapter(ChapterInfoDto chapter)
+    {
+        await playerService.GoToTimestamp(chapter.StartTime);
+    }
+
+    override protected async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await playerService.Init();
+            playerService.OnTimestampUpdated += () =>
+            {
+                @* CurrentTime = t; *@
+                StateHasChanged();
+            };
+        }
+    }
+
+    override protected async Task OnInitializedAsync()
+    {
+        queueService.OnQueueChanged += QueueChanged;
+    }
+
+    private async void QueueChanged()
+    {
+        File = await playerService.getCurrentFileInQueue();
+    }
+
+    private async Task Next30s()
+    {
+        await playerService.Next30s();
+    }
+
+    private async Task Prev30s()
+    {
+        await playerService.Prev30s();
+    }
+
+    [Microsoft.JSInterop.JSInvokableAttribute("UpdateCurrentTimestampFromJs")]
+    public static void UpdateCurrentTimestampFromJs(float time)
+    {
+        Console.WriteLine($" got a new time {time}");
+    }
+}

@@ -4,6 +4,8 @@ C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\bin\Debug\net8.0\AudioPlayerBl
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\bin\Debug\net8.0\AudioPlayerBlazor.pdb
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\AudioPlayerBlazor.csproj.AssemblyReference.cache
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\AudioPlayerBlazor.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\GitVersionInformation.g.cs
+C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\AssemblyInfo.g.cs
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\AudioPlayerBlazor.AssemblyInfoInputs.cache
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\AudioPlayerBlazor.AssemblyInfo.cs
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\AudioPlayerBlazor.csproj.CoreCompileInputs.cache
@@ -15,12 +17,13 @@ C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\staticwebasse
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\staticwebassets\msbuild.buildMultiTargeting.AudioPlayerBlazor.props
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\staticwebassets\msbuild.buildTransitive.AudioPlayerBlazor.props
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\staticwebassets.pack.json
+C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\scopedcss\AudioPlayer.razor.rz.scp.css
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\scopedcss\Component1.razor.rz.scp.css
+C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\scopedcss\Components\ModeSelector.razor.rz.scp.css
+C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\scopedcss\PlayerDisplay.razor.rz.scp.css
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\scopedcss\bundle\AudioPlayerBlazor.styles.css
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\scopedcss\projectbundle\AudioPlayerBlazor.bundle.scp.css
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\AudioPlayerBlazor.dll
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\refint\AudioPlayerBlazor.dll
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\AudioPlayerBlazor.pdb
 C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\ref\AudioPlayerBlazor.dll
-C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\GitVersionInformation.g.cs
-C:\Users\Fuyuki\src\calibre-net\AudioPlayerBlazor\obj\Debug\net8.0\AssemblyInfo.g.cs

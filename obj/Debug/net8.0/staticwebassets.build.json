@@ -1,6 +1,6 @@
 {
   "Version": 1,
-  "Hash": "Y614/JPWehb4BnCBFpOsmOJd/v9TaDMOPlP/FaBuSx4=",
+  "Hash": "O8XRBCknCm8mEqHx+cJHx8DH92VDTIHCuGGb0HPXCeQ=",
   "Source": "AudioPlayerBlazor",
   "BasePath": "_content/AudioPlayerBlazor",
   "Mode": "Default",
@@ -53,6 +53,25 @@
       "CopyToOutputDirectory": "Never",
       "CopyToPublishDirectory": "PreserveNewest",
       "OriginalItemSpec": "C:\\Users\\Fuyuki\\src\\calibre-net\\AudioPlayerBlazor\\obj\\Debug\\net8.0\\scopedcss\\projectbundle\\AudioPlayerBlazor.bundle.scp.css"
+    },
+    {
+      "Identity": "C:\\Users\\Fuyuki\\src\\calibre-net\\AudioPlayerBlazor\\wwwroot\\AudioPlayerBlazorInterop.js",
+      "SourceId": "AudioPlayerBlazor",
+      "SourceType": "Discovered",
+      "ContentRoot": "C:\\Users\\Fuyuki\\src\\calibre-net\\AudioPlayerBlazor\\wwwroot\\",
+      "BasePath": "_content/AudioPlayerBlazor",
+      "RelativePath": "AudioPlayerBlazorInterop.js",
+      "AssetKind": "All",
+      "AssetMode": "All",
+      "AssetRole": "Primary",
+      "AssetMergeBehavior": "PreferTarget",
+      "AssetMergeSource": "",
+      "RelatedAsset": "",
+      "AssetTraitName": "",
+      "AssetTraitValue": "",
+      "CopyToOutputDirectory": "Never",
+      "CopyToPublishDirectory": "PreserveNewest",
+      "OriginalItemSpec": "wwwroot\\AudioPlayerBlazorInterop.js"
     },
     {
       "Identity": "C:\\Users\\Fuyuki\\src\\calibre-net\\AudioPlayerBlazor\\wwwroot\\background.png",

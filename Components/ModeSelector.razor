@@ -1,0 +1,15 @@
+@inject DisplayService displayService
+
+<div class="mode-selector">
+    <div class="mode-button" @onclick="() => ChangeMode(PlayerMode.Mini)">M</div>
+    <div class="mode-button" @onclick="() => ChangeMode(PlayerMode.Bottom)">B</div>
+    <div class="mode-button" @onclick="() => ChangeMode(PlayerMode.Full)">F</div>
+</div>
+@code {
+
+    private void ChangeMode(PlayerMode mode)
+    {
+        Console.WriteLine($"Change to {mode}");
+        displayService.SetPlayerMode(mode);
+    }
+}

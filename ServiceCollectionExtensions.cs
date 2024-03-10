@@ -1,4 +1,5 @@
 using AudioPlayerBlazor.Services;
+using Blazored.LocalStorage;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace AudioPlayerBlazor;
@@ -28,11 +29,13 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddAudioPlayerBlazor(this IServiceCollection services,
         Action<AudioPlayerBlazorOptions> optionsBuilder, ServiceLifetime serviceLifetime = ServiceLifetime.Scoped)
     {
+        services.AddBlazoredLocalStorage();
         // services.AddJsBlob(serviceLifetime);
         // services.AddHttpClient();
         // services.AddScoped<EPubJsInterop>();
         services.AddScoped<PlayerInterop>();
         services.AddScoped<MediaPlayerService>();
+                services.AddScoped<SettingService>();
 
         switch (serviceLifetime)
         {

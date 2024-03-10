@@ -1,10 +1,12 @@
 @inject MediaPlayerService service
 @inject DisplayService displayService
+@inject SettingService SettingService
 
 <div class="@PlayerModeClass">
     <div class="inner-wrap">
+        <AudioPlayerBlazor.Components.AlbumCover />
         <AudioPlayerBlazor.Components.ModeSelector />
-        <AudioPlayerBlazor.Components.Queue />
+        @* <AudioPlayerBlazor.Components.Queue /> *@
         <AudioPlayerBlazor.Components.Player />
     </div>
 </div>
@@ -15,6 +17,8 @@
     override protected async Task OnInitializedAsync()
     {
         displayService.OnPlayerModeChanged += PlayerModeChanged;
+
+        SettingService.LoadSettings();
     }
 
 
@@ -28,6 +32,7 @@
             PlayerMode.Full => "full-player-display",
             _ => "mini-player-display"
         };
-        StateHasChanged();
+        InvokeAsync(() => this.StateHasChanged());
+        @* StateHasChanged(); *@
     }
 }

@@ -18,14 +18,28 @@
   bottom: 10px;
 }
 
-.mini-player-display, .full-player-display, .bottom-player-display {
+.mini-player-display,
+.full-player-display,
+.bottom-player-display {
   position: fixed;
   z-index: 99999;
-  border: solid 2px red;
+  border: solid 1px black;
   background-color: black;
+  border-radius: 1em;
+  overflow: hidden;
+  box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
 }
-.mini-player-display .inner-wrap, .full-player-display .inner-wrap, .bottom-player-display .inner-wrap {
+.mini-player-display .inner-wrap,
+.full-player-display .inner-wrap,
+.bottom-player-display .inner-wrap {
   position: relative;
   height: 100%;
+  width: 100%;
+}
+
+.mini-player-display ::deep .player, .mini-player-display ::deep .player-title {
+  padding-top: 24px;
+}
+.mini-player-display ::deep .mode-selector {
   width: 100%;
 }

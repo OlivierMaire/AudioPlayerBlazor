@@ -1,4 +1,4 @@
-.mini-player-display{
+.mini-player-display {
     width: 250px;
     height: 250px;
     bottom: 10px;
@@ -6,33 +6,52 @@
 
 }
 
-.full-player-display{
+.full-player-display {
     width: 100%;
     height: 100%;
-    top: 0; 
-    left: 0; 
+    top: 0;
+    left: 0;
 
 }
 
-.bottom-player-display{
+.bottom-player-display {
     width: 100%;
     height: 250px;
-    bottom: 10px; 
+    bottom: 10px;
 
 
 }
 
-.mini-player-display, .full-player-display, .bottom-player-display 
-{
+.mini-player-display,
+.full-player-display,
+.bottom-player-display {
     position: fixed;
 
     z-index: 99999;
-    border: solid 2px red;
+    border: solid 1px black;
     background-color: black;
-    .inner-wrap{
+
+    border-radius: 1em;
+    overflow: hidden;
+
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+    
+
+    .inner-wrap {
         position: relative;
         height: 100%;
         width: 100%;
     }
 
+}
+
+.mini-player-display {
+    ::deep {
+        .player, .player-title {
+            padding-top: 24px;
+        }
+        .mode-selector{
+            width: 100%;
+        } 
+    }
 }

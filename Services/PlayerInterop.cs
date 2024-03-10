@@ -9,6 +9,7 @@ internal class PlayerInterop : IAsyncDisposable
     private readonly Lazy<Task<IJSObjectReference>> moduleTask;
 
     public Action<float>? OnTimestampUpdated;
+    public Action<float>? OnVolumeChange;
 
     [DynamicDependency(nameof(UpdateCurrentTimestampFromJs))]
     public PlayerInterop(IJSRuntime jsRuntime)
@@ -67,5 +68,18 @@ internal class PlayerInterop : IAsyncDisposable
     {
         // Console.WriteLine($"Interop got a new time {time}");
         OnTimestampUpdated?.Invoke(time);
+    }
+
+       [JSInvokableAttribute("UpdateVolumeFromJs")]
+    public void UpdateVolumeFromJs(float volume)
+    {
+        // Console.WriteLine($"Interop got a new time {time}");
+        OnVolumeChange?.Invoke(volume);
+    }
+
+    public async Task SetWaveRendering(bool shouldRender)
+    {
+        var module = await moduleTask.Value;
+        await module.InvokeVoidAsync("player.SetWaveRendering", shouldRender);
     }
 }

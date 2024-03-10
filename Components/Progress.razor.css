@@ -1,0 +1,74 @@
+.player-progress {
+  width: 100%;
+  position: relative;
+  --player-progress-height: 10px;
+  height: var(--player-progress-height);
+  min-height: var(--player-progress-height);
+  z-index: 3;
+}
+.player-progress .player-progress-bar {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.player-progress .player-progress-bar:hover :not(.chapter-list) .progress-list {
+  transform: scaleY(1);
+}
+.player-progress .player-progress-bar .chapter-progress.progress-list:hover {
+  transform: scaleY(1);
+}
+.player-progress .player-progress-bar .progress-list {
+  transform: scaleY(0.5);
+  transform-origin: center;
+  transition: all linear 0.05s;
+  height: 100%;
+  cursor: pointer;
+  position: absolute;
+  width: 100%;
+}
+.player-progress .player-progress-bar .progress-list .progress-background {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.2);
+  transform-origin: 0 0;
+  height: var(--player-progress-height);
+}
+.player-progress .player-progress-bar .progress-list .progress-seeking {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgba(255, 255, 255, 0.4);
+  transform-origin: 0 0;
+  height: var(--player-progress-height);
+}
+.player-progress .player-progress-bar .progress-list .progress-current {
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background-color: rgb(89, 74, 226);
+  transform-origin: 0 0;
+  height: var(--player-progress-height);
+}
+.player-progress .player-progress-bar .chapter-list {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.player-progress .player-progress-bar .chapter-list .progress-background,
+.player-progress .player-progress-bar .chapter-list .progress-seeking,
+.player-progress .player-progress-bar .chapter-list .progress-current {
+  left: 1px;
+}
+
+.time-progress {
+  font-size: 0.9em;
+  opacity: 0.8;
+  z-index: 3;
+}

@@ -1,0 +1,26 @@
+@inject MediaPlayerService playerService
+@inject QueuePlayerService queueService
+
+<div class="album-cover">
+    @if (!String.IsNullOrEmpty(AlbumCover64))
+    {
+        <img src="data:@AlbumCoverInfo?.MimeType;base64,@AlbumCover64" alt="@File?.Title" />
+    }
+</div>
+
+@code {
+
+    private PictureInfoDto? AlbumCoverInfo => File?.EmbeddedPictures?.FirstOrDefault(p => p.PicType ==
+    PictureInfoDto.PIC_TYPE.Generic || p.PicType == PictureInfoDto.PIC_TYPE.Front);
+    private string AlbumCover64 => Convert.ToBase64String(AlbumCoverInfo?.PictureData ?? []);
+    AudioMetadata? File;
+
+    override protected async Task OnInitializedAsync()
+    {
+        queueService.OnQueueChanged += async () => { 
+                File = await playerService.getCurrentFileInQueue(); 
+                StateHasChanged(); };
+    }
+
+
+}

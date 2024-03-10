@@ -1,15 +1,39 @@
 @inject DisplayService displayService
+@inject SettingService SettingService
 
 <div class="mode-selector">
-    <div class="mode-button" @onclick="() => ChangeMode(PlayerMode.Mini)">M</div>
-    <div class="mode-button" @onclick="() => ChangeMode(PlayerMode.Bottom)">B</div>
-    <div class="mode-button" @onclick="() => ChangeMode(PlayerMode.Full)">F</div>
+    <div title="settings" class="settings-button" @onclick="ToggleSettings"></div>
+    <div class="separator"></div>
+    <div title="minimize to corner" class="mode-button minimize-button @(displayService.PlayerMode == PlayerMode.Mini ? "active" : "")" @onclick="() => ChangeMode(PlayerMode.Mini)"></div>
+    <div title="dock on bottom" class="mode-button dock-button @(displayService.PlayerMode == PlayerMode.Bottom ? "active" : "")" @onclick="() => ChangeMode(PlayerMode.Bottom)"></div>
+    <div title="fullscreen" class="mode-button maximize-button @(displayService.PlayerMode == PlayerMode.Full ? "active" : "")" @onclick="() => ChangeMode(PlayerMode.Full)"></div>
+    <div class="separator"></div>
+    <div title="close player" class="close-button"></div>
 </div>
+
+@if (SettingsOpened) {
+    <Settings />
+}
 @code {
 
+    bool SettingsOpened = false;
+    
+    protected override async Task OnInitializedAsync()
+    {
+        SettingService.OnCloseSettings += () => {SettingsOpened = false; StateHasChanged();};
+        ChangeMode(SettingService.LastMode);
+    }
     private void ChangeMode(PlayerMode mode)
     {
         Console.WriteLine($"Change to {mode}");
         displayService.SetPlayerMode(mode);
+        SettingService.LastMode = mode;
     }
+
+
+
+    void ToggleSettings(){
+        SettingsOpened = !SettingsOpened;
+    }
+
 }

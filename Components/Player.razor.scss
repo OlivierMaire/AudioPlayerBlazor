@@ -40,6 +40,9 @@
 
         background-color: #000000aa;
         box-shadow: 0 0 1em 3em #000000aa;
+        .control-separator{
+            display: none;
+        }
 
         .volume-control:hover {
             position: relative;

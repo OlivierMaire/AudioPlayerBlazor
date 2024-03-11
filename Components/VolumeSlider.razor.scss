@@ -5,7 +5,9 @@
     bottom: 0;
 
     width: 26px;
-    height: 100px;
+    --volume-height: 80px;
+
+    height: var(--volume-height);
 
     background-color: #000000;
     box-shadow: 0 0 4px 2px #ffffff55;
@@ -21,7 +23,7 @@
         .vertical-progress-background, .vertical-progress-handle {
             width: 6px;
             margin: 10px;
-            height: 80px;
+            height: calc(var(--volume-height) - 20px);
             position: absolute;
             bottom: 0;
             left: 0;

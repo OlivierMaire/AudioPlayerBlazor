@@ -37,9 +37,7 @@ export var player = {
       this.audio.load();
       this.loaded = true;
       handleVolumeChange();
-      if (this.waveRender) {
-        this.waveformInit();
-      }
+      this.waveformInit();
     }
   },
   play() {
@@ -71,6 +69,8 @@ export var player = {
 
   waveFormObj: {},
   waveformInit() {
+    if (this.waveformInitDone) return;
+
     const audioCtx = new AudioContext();
     const analyser = audioCtx.createAnalyser();
 
@@ -134,6 +134,10 @@ export var player = {
         const opacityRate = 1 / width25p;
 
         player.drawVisual = requestAnimationFrame(drawWave);
+        if (!player.dataArray || player.dataArray.length == 0) {
+          cancelAnimationFrame(player.drawVisual);
+          return;
+        }
         analyser.getByteTimeDomainData(player.dataArray);
         canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
 
@@ -250,6 +254,10 @@ function handleVolumeClick(event) {
 }
 
 function handleVolumeChange() {
-  player.volumeSliders.querySelector('.vertical-progress-value').style = `height: calc(80px * ${player.audio.volume}`;
+  document.querySelector(".volume-slider").style = "display: block;";
+  let cHeight = player.volumeSliders.querySelector('.vertical-progress-background').clientHeight;
+  document.querySelector(".volume-slider").style = "";
+
+  player.volumeSliders.querySelector('.vertical-progress-value').style = `height: calc(${cHeight}px * ${player.audio.volume}`;
   player.dotNetReference.invokeMethodAsync('UpdateVolumeFromJs', player.audio.volume);
 }

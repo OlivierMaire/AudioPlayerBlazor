@@ -32,6 +32,9 @@
   background-color: rgba(0, 0, 0, 0.6666666667);
   box-shadow: 0 0 1em 3em rgba(0, 0, 0, 0.6666666667);
 }
+.player .controls .control-separator {
+  display: none;
+}
 .player .controls .volume-control:hover {
   position: relative;
 }

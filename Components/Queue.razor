@@ -11,7 +11,7 @@
 
 @code {
 
-    override protected async Task OnInitializedAsync()
+    override protected void OnInitialized()
     {
         service.OnQueueChanged += QueueChanged;
     }

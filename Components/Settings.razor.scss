@@ -16,12 +16,18 @@
         margin-bottom: 4px;
     }
 
+
+.settings-inputs{
+    width: fit-content;
+    
     .settings-input-form {
         padding: 2px;
-
-        >div {
-            display: inline-block;
-        }
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2px;
+       
 
         .settings-input {
             vertical-align: middle;
@@ -48,6 +54,8 @@
             }
         }
     }
+}
+
 
     .settings-button-close {
         padding: 2px 4px;
@@ -72,6 +80,7 @@
 .onoffswitch {
     position: relative;
     width: 32px;
+    height: 12px;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;

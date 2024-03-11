@@ -9,22 +9,21 @@
     }
     @if (File?.Chapters != null && File?.Chapters?.Count > 0)
     {
-       <span> &mdash; @playerService.CurrentChapter()?.Title</span>
+        <span> &mdash; @playerService.CurrentChapter()?.Title</span>
     }
 </div>
 
-@code{
+@code {
     AudioMetadata? File;
-    override protected async Task OnInitializedAsync()
+    override protected void OnInitialized()
     {
-        queueService.OnQueueChanged += QueueChanged;
-        playerService.OnTimestampUpdated += () =>StateHasChanged();
-     
+        queueService.OnQueueChanged += () =>
+        {
+            File = playerService.getCurrentFileInQueue();
+            StateHasChanged();
+        };
+        playerService.OnTimestampUpdated += () => StateHasChanged();
+
     }
 
-    private async void QueueChanged()
-    {
-        File = await playerService.getCurrentFileInQueue();
-        StateHasChanged();
-    }
 }

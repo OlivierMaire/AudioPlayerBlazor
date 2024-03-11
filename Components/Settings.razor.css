@@ -13,16 +13,22 @@
   border-bottom: solid 1px #ccc;
   margin-bottom: 4px;
 }
-.settings-panel .settings-input-form {
+.settings-panel .settings-inputs {
+  width: -moz-fit-content;
+  width: fit-content;
+}
+.settings-panel .settings-inputs .settings-input-form {
   padding: 2px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2px;
 }
-.settings-panel .settings-input-form > div {
-  display: inline-block;
-}
-.settings-panel .settings-input-form .settings-input {
+.settings-panel .settings-inputs .settings-input-form .settings-input {
   vertical-align: middle;
 }
-.settings-panel .settings-input-form .settings-input input {
+.settings-panel .settings-inputs .settings-input-form .settings-input input {
   background-color: #060606;
   border: none;
   border-bottom: solid 1px #ccc;
@@ -31,10 +37,10 @@
   text-align: right;
   -moz-appearance: textfield;
 }
-.settings-panel .settings-input-form .settings-input input:focus-visible {
+.settings-panel .settings-inputs .settings-input-form .settings-input input:focus-visible {
   outline: none;
 }
-.settings-panel .settings-input-form .settings-input input::-webkit-outer-spin-button, .settings-panel .settings-input-form .settings-input input::-webkit-inner-spin-button {
+.settings-panel .settings-inputs .settings-input-form .settings-input input::-webkit-outer-spin-button, .settings-panel .settings-inputs .settings-input-form .settings-input input::-webkit-inner-spin-button {
   -webkit-appearance: none;
   margin: 0;
 }
@@ -57,6 +63,7 @@
 .onoffswitch {
   position: relative;
   width: 32px;
+  height: 12px;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;

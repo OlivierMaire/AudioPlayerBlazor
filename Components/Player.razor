@@ -25,14 +25,14 @@
     <Progress File=File />
 
     <div class="controls">
-        <div class="playlist-button" @onclick="ToggleChapters">
-
-        </div>
+        <div class="playlist-button" @onclick="ToggleChapters"></div>
+        <div class="control-separator" ></div>
         <div class="prev-chapter-button" @onclick="PrevChapter"></div>
         <div class="rewind-button" @onclick="Prev30s"><span class="text-time">@settingService.RewindTime</span></div>
         <div class="@PlayPauseState" @onclick="OnPlayPause"></div>
         <div class="forward-button" @onclick="Next30s"><span class="text-time">@settingService.ForwardTime</span></div>
         <div class="next-chapter-button" @onclick="NextChapter"></div>
+        <div class="control-separator" ></div>
         <div class="volume-control @VolumeClass">
             <VolumeSlider />
         </div>
@@ -122,18 +122,16 @@
     }
 
 
-    override protected async Task OnInitializedAsync()
+    override protected void OnInitialized()
     {
-        queueService.OnQueueChanged += QueueChanged;
+        queueService.OnQueueChanged += async () =>
+        {
+            File = playerService.getCurrentFileInQueue();
+            StateHasChanged();
+            await playerService.Load();
+        };
     }
 
-    private async void QueueChanged()
-    {
-        File = await playerService.getCurrentFileInQueue();
-        StateHasChanged();
-        Console.WriteLine("loading...");
-        await playerService.Load();
-    }
 
     private async Task Next30s()
     {

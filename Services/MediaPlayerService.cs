@@ -51,11 +51,11 @@ internal class MediaPlayerService
         await interop.Init();
     }
 
-    public async Task<AudioMetadata> getCurrentFileInQueue()
+    public AudioMetadata getCurrentFileInQueue()
     {
-        if (CurrentFile != queueService.Queue.First())
+        if (CurrentFile != queueService.Queue.Last())
         {
-            CurrentFile = queueService.Queue.First();
+            CurrentFile = queueService.Queue.Last();
         }
         return CurrentFile;
     }
@@ -63,7 +63,7 @@ internal class MediaPlayerService
     public async Task Load()
     {
 
-        var file = await this.getCurrentFileInQueue();
+        var file = this.getCurrentFileInQueue();
         var audiosource = file.AudioSourceUrl;
         var audiotype = file.AudioFormat.MimeList.FirstOrDefault() ?? string.Empty;
         await interop.Load(audiosource, audiotype);

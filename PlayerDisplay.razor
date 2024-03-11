@@ -11,14 +11,30 @@
     </div>
 </div>
 
+@if (displayService.PlayerMode == PlayerMode.Bottom)
+{
+    <style>
+        :root {
+            --bottom-player-height: 100px;
+        }
+    </style>
+}
+
 @code {
 
     private string PlayerModeClass { get; set; } = "mini-player-display";
     override protected async Task OnInitializedAsync()
     {
         displayService.OnPlayerModeChanged += PlayerModeChanged;
+    }
 
-        SettingService.LoadSettings();
+    override protected async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await SettingService.LoadSettings();
+
+        }
     }
 
 

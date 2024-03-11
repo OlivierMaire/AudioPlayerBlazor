@@ -37,9 +37,63 @@
   width: 100%;
 }
 
-.mini-player-display ::deep .player, .mini-player-display ::deep .player-title {
+.mini-player-display ::deep .player,
+.mini-player-display ::deep .player-title {
   padding-top: 24px;
 }
 .mini-player-display ::deep .mode-selector {
   width: 100%;
+}
+
+.bottom-player-display {
+  border-radius: 0;
+  bottom: 0;
+  height: 100px;
+}
+.bottom-player-display ::deep .player-title {
+  box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.6666666667);
+  width: calc(100% - 160px);
+}
+.bottom-player-display ::deep .player .separator {
+  height: auto;
+  padding: 0;
+}
+.bottom-player-display ::deep .player .separator #waveform {
+  display: none;
+}
+.bottom-player-display ::deep .player .controls {
+  gap: 1em;
+}
+.bottom-player-display ::deep .player .controls .control-separator {
+  display: block;
+  flex-grow: 2;
+}
+.bottom-player-display ::deep .settings-panel .settings-inputs {
+  flex-direction: row;
+  display: flex;
+  gap: 1em;
+}
+.bottom-player-display ::deep .settings-panel .settings-button-close {
+  display: none;
+}
+
+.full-player-display {
+  border-radius: 0;
+}
+.full-player-display ::deep .player-title {
+  box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.6666666667);
+  width: calc(100% - 160px);
+}
+.full-player-display ::deep .player .separator #waveform {
+  max-width: 400px;
+  max-height: 400px;
+  margin: 0 auto;
+}
+.full-player-display ::deep .player .controls {
+  gap: 1em;
+  height: 4rem;
+}
+.full-player-display ::deep .player .controls .control-separator {
+  display: block;
+  flex-grow: 2;
 }

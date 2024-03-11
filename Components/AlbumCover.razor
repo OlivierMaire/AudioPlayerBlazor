@@ -15,10 +15,10 @@
     private string AlbumCover64 => Convert.ToBase64String(AlbumCoverInfo?.PictureData ?? []);
     AudioMetadata? File;
 
-    override protected async Task OnInitializedAsync()
+    override protected void OnInitialized()
     {
-        queueService.OnQueueChanged += async () => { 
-                File = await playerService.getCurrentFileInQueue(); 
+        queueService.OnQueueChanged += () => { 
+                File = playerService.getCurrentFileInQueue(); 
                 StateHasChanged(); };
     }
 

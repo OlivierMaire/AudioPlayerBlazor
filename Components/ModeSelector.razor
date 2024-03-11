@@ -1,38 +1,58 @@
 @inject DisplayService displayService
 @inject SettingService SettingService
+@inject MediaPlayerService PlayerService
 
 <div class="mode-selector">
     <div title="settings" class="settings-button" @onclick="ToggleSettings"></div>
     <div class="separator"></div>
-    <div title="minimize to corner" class="mode-button minimize-button @(displayService.PlayerMode == PlayerMode.Mini ? "active" : "")" @onclick="() => ChangeMode(PlayerMode.Mini)"></div>
-    <div title="dock on bottom" class="mode-button dock-button @(displayService.PlayerMode == PlayerMode.Bottom ? "active" : "")" @onclick="() => ChangeMode(PlayerMode.Bottom)"></div>
-    <div title="fullscreen" class="mode-button maximize-button @(displayService.PlayerMode == PlayerMode.Full ? "active" : "")" @onclick="() => ChangeMode(PlayerMode.Full)"></div>
+    <div title="minimize to corner"
+        class="mode-button minimize-button @(displayService.PlayerMode == PlayerMode.Mini ? "active" : "")"
+        @onclick="() => ChangeMode(PlayerMode.Mini)"></div>
+    <div title="dock on bottom"
+        class="mode-button dock-button @(displayService.PlayerMode == PlayerMode.Bottom ? "active" : "")"
+        @onclick="() => ChangeMode(PlayerMode.Bottom)"></div>
+    <div title="fullscreen"
+        class="mode-button maximize-button @(displayService.PlayerMode == PlayerMode.Full ? "active" : "")"
+        @onclick="() => ChangeMode(PlayerMode.Full)"></div>
     <div class="separator"></div>
     <div title="close player" class="close-button"></div>
 </div>
 
-@if (SettingsOpened) {
+@if (SettingsOpened)
+{
     <Settings />
 }
 @code {
 
     bool SettingsOpened = false;
-    
+
     protected override async Task OnInitializedAsync()
     {
-        SettingService.OnCloseSettings += () => {SettingsOpened = false; StateHasChanged();};
-        ChangeMode(SettingService.LastMode);
+        SettingService.OnCloseSettings += () => { SettingsOpened = false; StateHasChanged(); };
+        SettingService.SettingsLoaded += async (s) => { await ChangeMode(s.LastMode); };
+        @* ChangeMode(SettingService.LastMode); *@
     }
-    private void ChangeMode(PlayerMode mode)
+    private async Task ChangeMode(PlayerMode mode)
     {
         Console.WriteLine($"Change to {mode}");
         displayService.SetPlayerMode(mode);
         SettingService.LastMode = mode;
+
+        if (mode == PlayerMode.Bottom)
+        {
+            await PlayerService.SetWaveRendering(false);
+        }
+        else
+        {
+            await PlayerService.SetWaveRendering(SettingService.WaveFrame);
+        }
+         StateHasChanged();
     }
 
 
 
-    void ToggleSettings(){
+    void ToggleSettings()
+    {
         SettingsOpened = !SettingsOpened;
     }
 

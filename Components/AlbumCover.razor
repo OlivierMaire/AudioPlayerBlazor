@@ -17,9 +17,13 @@
 
     override protected void OnInitialized()
     {
-        queueService.OnQueueChanged += () => { 
-                File = playerService.getCurrentFileInQueue(); 
-                StateHasChanged(); };
+        queueService.OnQueueChanged += () =>
+        {
+            File = playerService.getCurrentFileInQueue();
+            StateHasChanged();
+        };
+        File = playerService.getCurrentFileInQueue();
+
     }
 
 

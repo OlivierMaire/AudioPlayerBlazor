@@ -15,7 +15,7 @@
         class="mode-button maximize-button @(displayService.PlayerMode == PlayerMode.Full ? "active" : "")"
         @onclick="() => ChangeMode(PlayerMode.Full)"></div>
     <div class="separator"></div>
-    <div title="close player" class="close-button"></div>
+    <div title="close player" class="close-button" @onclick="Close"></div>
 </div>
 
 @if (SettingsOpened)
@@ -54,6 +54,10 @@
     void ToggleSettings()
     {
         SettingsOpened = !SettingsOpened;
+    }
+
+    async Task Close(){
+        await PlayerService.Stop();
     }
 
 }

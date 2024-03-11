@@ -53,6 +53,8 @@
 .bottom-player-display ::deep .player-title {
   box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.6666666667);
   width: calc(100% - 160px);
+  overflow: hidden;
+  height: 1.5em;
 }
 .bottom-player-display ::deep .player .separator {
   height: auto;

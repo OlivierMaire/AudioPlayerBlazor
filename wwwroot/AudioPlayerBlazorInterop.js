@@ -14,7 +14,9 @@ export var player = {
   },
   loaded: false,
   setDotNetRef(pDotNetReference) {
-    this.dotNetReference = pDotNetReference
+    if (!this.dotNetReference) {
+      this.dotNetReference = pDotNetReference;
+    }
   },
   dotNetReference: undefined,
   init() {
@@ -27,16 +29,19 @@ export var player = {
       this.audio.addEventListener('volumechange', handleVolumeChange);
     }
   },
-  load(src, mime) {
+  load(src, mime, position) {
     console.log("load js audio");
-    this.init();
     let audioSource = this.audio.querySelector("source");
     if (audioSource != null) {
       audioSource.src = src;
       audioSource.type = mime;
       this.audio.load();
+      this.goToTimestamp(position);
+      this.init();
       this.loaded = true;
       handleVolumeChange();
+      let canvas = document.getElementById("waveform");
+      this.canvasCtx = canvas.getContext("2d");
       this.waveformInit();
     }
   },
@@ -57,6 +62,11 @@ export var player = {
     if (value < 0) value = 0;
     this.audio.volume = value;
   },
+  stop() {
+
+    this.audio.pause();
+    this.waveformInitDone = false;
+  },
   SetWaveRendering(shouldRender) {
     this.waveRender = shouldRender;
     this.waveRenderListener(shouldRender);
@@ -68,8 +78,11 @@ export var player = {
   barWidth: 0,
 
   waveFormObj: {},
+  canvasContext: {},
   waveformInit() {
-    if (this.waveformInitDone) return;
+    if (this.waveformInitDone) {
+      return;
+    }
 
     const audioCtx = new AudioContext();
     const analyser = audioCtx.createAnalyser();
@@ -89,7 +102,7 @@ export var player = {
     source = audioCtx.createMediaElementSource(player.audio);
 
     let canvas = document.getElementById("waveform");
-    const canvasCtx = canvas.getContext("2d");
+    this.canvasCtx = canvas.getContext("2d");
     canvas.width = canvas.clientWidth - 6;
     canvas.height = canvas.clientHeight - 6;
     const WIDTH = canvas.width;
@@ -111,7 +124,7 @@ export var player = {
 
       analyser.fftSize = 256;
 
-      canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+      player.canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
 
       this.bufferLength = analyser.frequencyBinCount;
 
@@ -126,7 +139,7 @@ export var player = {
     function drawWave() {
       {
         if (!player.waveRender) {
-          canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+          player.canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
           return;
         }
 
@@ -139,7 +152,7 @@ export var player = {
           return;
         }
         analyser.getByteTimeDomainData(player.dataArray);
-        canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+        player.canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
 
         let x = 0;
         for (let i = 0; i < player.bufferLength; i++) {
@@ -148,8 +161,8 @@ export var player = {
           if (i < width25p) opacity = i * opacityRate;
           if (i > player.bufferLength - width25p) opacity = (player.bufferLength - i) * opacityRate;
 
-          canvasCtx.fillStyle = `hsla(${barHeight * 2 + 120},100%,50%,${opacity})`; // change color hue based on value (120 is green)
-          canvasCtx.fillRect(
+          player.canvasCtx.fillStyle = `hsla(${barHeight * 2 + 120},100%,50%,${opacity})`; // change color hue based on value (120 is green)
+          player.canvasCtx.fillRect(
             x,
             HEIGHT / 2 - barHeight,
             player.barWidth,
@@ -166,7 +179,7 @@ export var player = {
 
     function onPause() {
       cancelAnimationFrame(player.drawVisual);
-      canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
+      player.canvasCtx.clearRect(0, 0, WIDTH, HEIGHT);
       disconnectWaveForm();
     }
 

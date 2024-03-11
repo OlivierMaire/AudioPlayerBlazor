@@ -5,7 +5,6 @@ namespace AudioPlayerBlazor.Services;
 
 internal class PlayerInterop : IAsyncDisposable
 {
-
     private readonly Lazy<Task<IJSObjectReference>> moduleTask;
 
     public Action<float>? OnTimestampUpdated;
@@ -44,11 +43,15 @@ internal class PlayerInterop : IAsyncDisposable
         await module.InvokeVoidAsync("player.pause");
     }
 
-
-    public async ValueTask Load(string src, string mime)
+    public async ValueTask Stop()
     {
         var module = await moduleTask.Value;
-        await module.InvokeVoidAsync("player.load", src, mime);
+        await module.InvokeVoidAsync("player.stop");
+    }
+    public async ValueTask Load(string src, string mime, uint position = 0)
+    {
+        var module = await moduleTask.Value;
+        await module.InvokeVoidAsync("player.load", src, mime, position);
     }
 
     public async ValueTask GoToTimestamp(uint time)
@@ -70,7 +73,7 @@ internal class PlayerInterop : IAsyncDisposable
         OnTimestampUpdated?.Invoke(time);
     }
 
-       [JSInvokableAttribute("UpdateVolumeFromJs")]
+    [JSInvokableAttribute("UpdateVolumeFromJs")]
     public void UpdateVolumeFromJs(float volume)
     {
         // Console.WriteLine($"Interop got a new time {time}");

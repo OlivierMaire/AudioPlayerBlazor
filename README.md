@@ -1,0 +1,3 @@
+# AudioPlayerBlazor
+Blazor Component to read hosted audio files.
+Supports MP3, MP4, M4A, M4B...

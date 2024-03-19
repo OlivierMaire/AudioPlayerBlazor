@@ -12,6 +12,7 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>MP3;MP4;M4B;M4A;Audio;Blazor;</PackageTags>
+    <PackageProjectUrl>https://github.com/OlivierMaire/AudioPlayerBlazor</PackageProjectUrl>
     <RepositoryUrl>https://github.com/OlivierMaire/AudioPlayerBlazor.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
 

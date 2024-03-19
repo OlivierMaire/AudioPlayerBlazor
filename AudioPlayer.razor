@@ -11,7 +11,7 @@
     [Parameter] public EventCallback<BookmarkProgress> OnProgress { get; set; }
 
     bool Visible { get; set; } = false;
-    override protected async Task OnInitializedAsync()
+    override protected void OnInitialized()
     {
         Console.WriteLine("Audio Player Initialized");
 

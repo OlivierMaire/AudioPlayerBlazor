@@ -69,7 +69,7 @@
 
     private double CurrentPosition => playerService.CurrentTimeAsMilliseconds / (File?.DurationMs ?? 1);
 
-    override protected async Task OnAfterRenderAsync(bool firstRender)
+    override protected void OnAfterRender(bool firstRender)
     {
         if (firstRender)
         {

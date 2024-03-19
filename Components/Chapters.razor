@@ -32,25 +32,6 @@
             StateHasChanged();
         };
     }
-
-    @* private async void QueueChanged()
-{
-File = await playerService.getCurrentFileInQueue();
-Console.WriteLine($"Chapters {File.Chapters.Count}" );
-StateHasChanged();
-} *@
-
-
-    override protected async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (firstRender)
-        {
-            @* queueService.OnQueueChanged += QueueChanged; *@
-
-
-        }
-    }
-
     async Task GoToChapter(ChapterInfoDto chapter)
     {
         await playerService.GoToTimestamp(chapter.StartTime);

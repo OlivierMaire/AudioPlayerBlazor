@@ -26,11 +26,10 @@
 
     bool SettingsOpened = false;
 
-    protected override async Task OnInitializedAsync()
+    protected override void OnInitialized()
     {
         SettingService.OnCloseSettings += () => { SettingsOpened = false; StateHasChanged(); };
         SettingService.SettingsLoaded += async (s) => { await ChangeMode(s.LastMode); };
-        @* ChangeMode(SettingService.LastMode); *@
     }
     private async Task ChangeMode(PlayerMode mode)
     {

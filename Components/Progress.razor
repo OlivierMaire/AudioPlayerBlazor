@@ -1,0 +1,85 @@
+@using AudioPlayerBlazor
+@inject MediaPlayerService playerService
+
+@if (File != null)
+{
+    <div class="time-progress">
+        @playerService.CurrentTime.ToTimespanDisplay() / @TimeSpan.FromMilliseconds(File.DurationMs).ToTimespanDisplay()
+    </div>
+}
+
+<div class="player-progress">
+
+
+    <div class="player-progress-bar" id="audio-player-blazor-progressbar">
+
+        @* <div id="audio-player-blazor-progressbar" style="transform: scaleX(@(@playerService.CurrentTimeAsMilliseconds
+        /
+        (File?.DurationMs ?? 1)))"></div> *@
+
+
+        @* <progress id="audio-player-blazor-progressbar" max="@File?.DurationMs"
+        value="@playerService.CurrentTimeAsMilliseconds"></progress>
+        <progress id="audio-player-blazor-seekbar" max="@File?.DurationMs" value=""></progress> *@
+
+        @if (File != null && File.Chapters != null && File.Chapters.Count > 0)
+        {
+            <div class="chapter-list">
+                @foreach (var chapter in File.Chapters)
+                {
+                    <div class="chapter-progress progress-list"
+                        style="max-width: calc( @((chapter.EndTime - chapter.StartTime)  / (File?.DurationMs ?? 1) ) * 100% - 2px); left:  calc( @((chapter.StartTime)  / (File?.DurationMs ?? 1) ) * 100% - 1px);"
+                        data-title="@chapter.Title">
+                        <div class="progress-background"></div>
+                        <div class="progress-buffer"></div>
+                        <div class="progress-seeking" style="transform: scaleX(0)"></div>
+                        @if (playerService.CurrentTimeAsMilliseconds > chapter.EndTime)
+                        {
+                            <div class="progress-current" style="transform: scaleX(1)"></div>
+                        }
+                        else if (playerService.CurrentTimeAsMilliseconds < chapter.StartTime)
+                        {
+                            <div class="progress-current" style="transform: scaleX(0)"></div>
+                        }
+                        else
+                        {
+                            var posX = (playerService.CurrentTimeAsMilliseconds - chapter.StartTime) / (decimal)(chapter.EndTime -
+                            chapter.StartTime);
+                            <div class="progress-current" style="transform: scaleX(@posX)"></div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            @* no chapters *@
+            <div class="progress-list">
+                <div class="progress-background"></div>
+                <div class="progress-buffer"></div>
+                <div class="progress-seeking" style="transform: scaleX(0)"></div>
+                <div class="progress-current" style="transform: scaleX(@CurrentPosition)"></div>
+            </div>
+
+        }
+    </div>
+</div>
+@code {
+    [Parameter] public AudioMetadata? File { get; set; }
+
+    private double CurrentPosition => playerService.CurrentTimeAsMilliseconds / (File?.DurationMs ?? 1);
+
+    override protected void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            playerService.OnTimestampUpdated += () =>
+            {
+                StateHasChanged();
+            };
+        }
+    }
+
+
+
+}

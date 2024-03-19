@@ -1,0 +1,42 @@
+.volume-slider {
+  display: none;
+  position: absolute;
+  bottom: 0;
+  width: 26px;
+  --volume-height: 80px;
+  height: var(--volume-height);
+  background-color: #000000;
+  box-shadow: 0 0 4px 2px rgba(255, 255, 255, 0.3333333333);
+  border-radius: 13px;
+  opacity: 1;
+}
+.volume-slider .volume-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.volume-slider .volume-inner .vertical-progress-background, .volume-slider .volume-inner .vertical-progress-handle {
+  width: 6px;
+  margin: 10px;
+  height: calc(var(--volume-height) - 20px);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 3px;
+  background-color: #fff;
+  opacity: 0.5;
+}
+.volume-slider .volume-inner .vertical-progress-value {
+  width: 6px;
+  margin: 10px;
+  height: 40px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 3px;
+  background-color: #fff;
+  opacity: 1;
+}
+.volume-slider .volume-inner .vertical-progress-handle {
+  background-color: transparent;
+}

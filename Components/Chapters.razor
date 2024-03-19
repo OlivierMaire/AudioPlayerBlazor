@@ -1,0 +1,40 @@
+@inject MediaPlayerService playerService
+@inject QueuePlayerService queueService
+
+
+<div class="chapters">
+    @if (File != null && File.Chapters != null)
+    {
+        <div class="currently-playing">
+
+            @foreach (var c in File.Chapters)
+            {
+                <div @onclick="async () => await GoToChapter(c)"
+                    class="chapter-title @( (playerService.CurrentTimeAsMilliseconds >= c.StartTime && playerService.CurrentTimeAsMilliseconds < c.EndTime) ? "active": "")">
+                    @c.Title
+                </div>
+            }
+        </div>
+    }
+</div>
+
+
+@code {
+    [Parameter] public AudioMetadata? File { get; set; }
+
+    override protected async Task OnInitializedAsync()
+    {
+        Console.WriteLine($"File {File == null} Chapters {File?.Chapters?.Count}");
+
+        await playerService.Init();
+        playerService.OnTimestampUpdated += () =>
+        {
+            StateHasChanged();
+        };
+    }
+    async Task GoToChapter(ChapterInfoDto chapter)
+    {
+        await playerService.GoToTimestamp(chapter.StartTime);
+    }
+
+}

@@ -1,0 +1,55 @@
+.volume-slider {
+    display: none;
+
+    position: absolute;
+    bottom: 0;
+
+    width: 26px;
+    --volume-height: 80px;
+
+    height: var(--volume-height);
+
+    background-color: #000000;
+    box-shadow: 0 0 4px 2px #ffffff55;
+    border-radius: 13px;
+
+    opacity: 1;
+
+    .volume-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        .vertical-progress-background, .vertical-progress-handle {
+            width: 6px;
+            margin: 10px;
+            height: calc(var(--volume-height) - 20px);
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            border-radius: 3px;
+
+            background-color: #fff;
+            opacity: .5;
+        }
+
+        .vertical-progress-value {
+            width: 6px;
+            margin: 10px;
+            height: calc(80px / 2 );
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            border-radius: 3px;
+
+            background-color: #fff;
+            opacity: 1;
+        }
+
+        .vertical-progress-handle {
+            background-color: transparent;
+        }
+    }
+
+
+}

@@ -1,0 +1,43 @@
+@inject SettingService SettingService
+@using Microsoft.AspNetCore.Components.Forms
+
+<div class="settings-panel">
+    <div class="title"> Settings</div>
+
+    <div class="settings-inputs">
+        <div class="settings-input-form">
+            <div>Display Audio WaveForm: </div>
+            <div class="onoffswitch settings-input">
+
+                @* <InputCheckbox @bind-value="SettingService.WaveFrame" name="onoffswitch" class="onoffswitch-checkbox"
+                id="myonoffswitch" tabindex="0" ></InputCheckbox> *@
+                <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" tabindex="0"
+                    @bind-value="SettingService.WaveFrame" checked="@SettingService.WaveFrame">
+                <label class="onoffswitch-label" for="myonoffswitch"></label>
+            </div>
+        </div>
+        <div class="settings-input-form">
+            <div>Rewind time:</div>
+            <div class="settings-input"><input type="number" min="5" max="99"
+                    @bind-value="SettingService.RewindTime" />s
+            </div>
+        </div>
+        <div class="settings-input-form">
+            <div>Forward time:</div>
+            <div class="settings-input"><input type="number" min="5" max="99"
+                    @bind-value="SettingService.ForwardTime" />s
+            </div>
+        </div>
+    </div>
+
+    <div class="settings-button-close" @onclick="closeSettings">Close</div>
+</div>
+
+@code {
+
+    void closeSettings()
+    {
+        SettingService.CloseSettings();
+    }
+
+}

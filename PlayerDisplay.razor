@@ -1,20 +1,40 @@
 @inject MediaPlayerService service
 @inject DisplayService displayService
+@inject SettingService SettingService
 
 <div class="@PlayerModeClass">
     <div class="inner-wrap">
+        <AudioPlayerBlazor.Components.AlbumCover />
         <AudioPlayerBlazor.Components.ModeSelector />
-        <AudioPlayerBlazor.Components.Queue />
+        @* <AudioPlayerBlazor.Components.Queue /> *@
         <AudioPlayerBlazor.Components.Player />
     </div>
 </div>
 
+@if (displayService.PlayerMode == PlayerMode.Bottom)
+{
+    <style>
+        :root {
+            --bottom-player-height: 100px;
+        }
+    </style>
+}
+
 @code {
+ 
 
     private string PlayerModeClass { get; set; } = "mini-player-display";
-    override protected async Task OnInitializedAsync()
+    override protected void OnInitialized()
     {
         displayService.OnPlayerModeChanged += PlayerModeChanged;
+    }
+
+    override protected async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await SettingService.LoadSettings();
+        }
     }
 
 
@@ -28,6 +48,7 @@
             PlayerMode.Full => "full-player-display",
             _ => "mini-player-display"
         };
-        StateHasChanged();
+        InvokeAsync(() => this.StateHasChanged());
+        @* StateHasChanged(); *@
     }
 }

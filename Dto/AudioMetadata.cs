@@ -6,7 +6,7 @@ public record AudioMetadata
     //
     // Summary:
     //     Title
-    public string Title { get; init; } = string.Empty;
+    public string Title { get; set; } = string.Empty;
 
     //
     // Summary:
@@ -244,34 +244,34 @@ public record AudioMetadata
     //
     // Summary:
     //     Bitrate (kilobytes per second)
-    public int Bitrate { get; internal set; }
+    public int Bitrate { get; set; }
 
     //
     // Summary:
     //     Bit depth (bits per sample) -1 if bit depth is not relevant to that audio format
-    public int BitDepth { get; internal set; }
+    public int BitDepth { get; set; }
 
     //
     // Summary:
     //     Sample rate (Hz)
-    public double SampleRate { get; internal set; }
+    public double SampleRate { get; set; }
 
     //
     // Summary:
     //     Returns true if the bitrate is variable; false if not
-    public bool IsVBR { get; internal set; }
+    public bool IsVBR { get; set; }
 
     //
     // Summary:
     //     Family of the audio codec (See AudioDataIOFactory) 0=Streamed, lossy data 1=Streamed,
     //     lossless data 2=Sequenced with embedded sound library 3=Sequenced with codec
     //     or hardware-dependent sound library
-    public int CodecFamily { get; internal set; }
+    public int CodecFamily { get; set; }
 
     //
     // Summary:
     //     Format of the audio data
-    public string[] AudioFormat { get; internal set; } = [];
+    public FormatDto AudioFormat { get;  set; } = null!;
 
     //
     // Summary:
@@ -281,7 +281,7 @@ public record AudioMetadata
     //
     // Summary:
     //     Duration (milliseconds)
-    public double DurationMs { get; internal set; }
+    public double DurationMs { get; set; }
 
     //
     // Summary:
@@ -298,6 +298,42 @@ public record AudioMetadata
     //     List of pictures stored in the tag NB1 : PictureInfo.PictureData (raw binary
     //     picture data) is valued NB2 : Also allows to value embedded pictures inside chapters
     public IList<PictureInfoDto> EmbeddedPictures { get; set; } = [];
+
+}
+
+public record FormatDto{
+ 
+
+    //
+    // Summary:
+    //     Name
+    public string Name { get; set; } = string.Empty;
+
+    //
+    // Summary:
+    //     Short name
+    public string ShortName { get; set; } = string.Empty;
+
+    //
+    // Summary:
+    //     Internal unique ID
+    public int ID { get; set; }
+
+   
+    //
+    // Summary:
+    //     MIME types associated with the format
+    public ICollection<string> MimeList { get; init; } = [];
+
+    //
+    // Summary:
+    //     True if the format is readable by ATL
+    public bool Readable { get; set; }
+
+    //
+    // Summary:
+    //     True if the format is writable by ATL
+    public bool Writable { get; set; }
 
 }
 

@@ -1,0 +1,29 @@
+@inject MediaPlayerService playerService
+@inject QueuePlayerService queueService
+
+<div class="player-title">
+    <span class="title">@File?.Title</span>
+    @if (!String.IsNullOrEmpty(File?.Artist))
+    {
+        <span> &mdash; @File?.Artist </span>
+    }
+    @if (File?.Chapters != null && File?.Chapters?.Count > 0)
+    {
+        <span> &mdash; @playerService.CurrentChapter()?.Title</span>
+    }
+</div>
+
+@code {
+    AudioMetadata? File;
+    override protected void OnInitialized()
+    {
+        queueService.OnQueueChanged += () =>
+        {
+            File = playerService.getCurrentFileInQueue();
+            StateHasChanged();
+        };
+        playerService.OnTimestampUpdated += () => StateHasChanged();
+
+    }
+
+}

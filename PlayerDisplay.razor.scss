@@ -1,4 +1,4 @@
-.mini-player-display{
+.mini-player-display {
     width: 250px;
     height: 250px;
     bottom: 10px;
@@ -6,33 +6,146 @@
 
 }
 
-.full-player-display{
+.full-player-display {
     width: 100%;
     height: 100%;
-    top: 0; 
-    left: 0; 
+    top: 0;
+    left: 0;
 
 }
 
-.bottom-player-display{
+.bottom-player-display {
     width: 100%;
     height: 250px;
-    bottom: 10px; 
+    bottom: 10px;
 
 
 }
 
-.mini-player-display, .full-player-display, .bottom-player-display 
-{
+.mini-player-display,
+.full-player-display,
+.bottom-player-display {
     position: fixed;
 
     z-index: 99999;
-    border: solid 2px red;
+    border: solid 1px black;
     background-color: black;
-    .inner-wrap{
+
+    border-radius: 1em;
+    overflow: hidden;
+
+    box-shadow: 0px 3px 5px -1px rgba(0, 0, 0, 0.2), 0px 5px 8px 0px rgba(0, 0, 0, 0.14), 0px 1px 14px 0px rgba(0, 0, 0, 0.12);
+
+
+    .inner-wrap {
         position: relative;
         height: 100%;
         width: 100%;
+    }
+
+}
+
+.mini-player-display {
+    ::deep {
+
+        .player,
+        .player-title {
+            padding-top: 24px;
+        }
+
+        .mode-selector {
+            width: 100%;
+        }
+
+        // .volume-slider{
+        //     --volume-height: 100px;
+        // }
+    }
+}
+
+.bottom-player-display {
+    border-radius: 0;
+    bottom: 0;
+    height: 100px;
+
+    ::deep {
+        .player-title {
+            box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.6666666667);
+            width: calc(100% - 160px);
+
+            overflow: hidden;
+            height: 1.5em;
+        }
+
+        .player {
+
+            .separator {
+                height: auto;
+                padding: 0;
+
+                #waveform {
+                    display: none;
+                }
+            }
+
+            .controls {
+                gap: 1em;
+
+                .control-separator {
+                    display: block;
+                    flex-grow: 2;
+                }
+            }
+        }
+
+        .settings-panel {
+            .settings-inputs {
+                flex-direction: row;
+                display: flex;
+                gap: 1em;
+            }
+
+            .settings-button-close {
+                display: none;
+            }
+
+
+
+        }
+
+    }
+}
+
+.full-player-display {
+    border-radius: 0;
+
+    ::deep {
+        .player-title {
+            box-shadow: 0 0 1em 1em rgba(0, 0, 0, 0.6666666667);
+            width: calc(100% - 160px);
+        }
+
+
+        .player {
+            .separator {
+
+                #waveform {
+                    max-width: 400px;
+                    max-height: 400px;
+                    margin: 0 auto;
+                }
+            }
+
+            .controls {
+                gap: 1em;
+                height: 4rem;
+
+                .control-separator {
+                    display: block;
+                    flex-grow: 2;
+                }
+            }
+        }
     }
 
 }

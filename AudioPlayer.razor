@@ -1,14 +1,33 @@
-
-<div class="audio-player-blazor">
+@inject MediaPlayerService service
+@if (Visible)
+{
+    <div class="audio-player-blazor">
         <PlayerDisplay />
-</div>
+    </div>
+}
+
+@code {
+
+    [Parameter] public EventCallback<BookmarkProgress> OnProgress { get; set; }
+
+    bool Visible { get; set; } = false;
+    override protected void OnInitialized()
+    {
+        Console.WriteLine("Audio Player Initialized");
+
+        service.OnStop += () => { Visible = false; StateHasChanged(); };
+        service.OnStart += () => { Visible = true; StateHasChanged(); };
+
+        service.OnBookmarkUpdate += async (bu) =>
+        {
+            Console.WriteLine($"Update Bookmark: {bu.Timestamp}");
+            @* if (this.OnProgress != null) *@
+                await this.OnProgress.InvokeAsync(bu);
+        };
+
+    }
+}
 
 
-@code{
-    private bool IsPlaying = false;
 
-
-
-
- 
 }

@@ -1,52 +1,71 @@
 @inject MediaPlayerService playerService
 @inject QueuePlayerService queueService
+@inject DisplayService displayService
+@inject SettingService settingService
 
-<audio controls id="audio-player-blazor-html5">
+<audio id="audio-player-blazor-html5">
     <source src="" type="" />
 </audio>
 
-@playerService.CurrentTime
-<div class="player">
-    @if (File != null && File.Chapters != null)
-    {
-        <div class="currently-playing">
 
-            @foreach (var c in File.Chapters)
-            {
-                <div @onclick="async () => await GoToChapter(c)">@c.Title</div>
-            }
-        </div>
-    }
+<Title />
+
+<div class="player">
+
+
+    <div class="separator">
+        @if (File != null)
+        {
+            <canvas id="waveform" width="1" height="1"></canvas>
+        }
+    </div>
+
+
+
+    <Progress File=File />
 
     <div class="controls">
-        <div @onclick="OnPlayPause">@PlayPauseState</div>
-        <div>progress</div>
-        <div>title</div>
-        <div>volume</div>
-        <div>next</div>
-        <div>previous</div>
-        <div @onclick="Next30s">next 30sec</div>
-        <div @onclick="Prev30s">previous 30sec</div>
-        <div>Playlist</div>
+        <div class="playlist-button" @onclick="ToggleChapters"></div>
+        <div class="control-separator"></div>
+        <div class="prev-chapter-button" @onclick="PrevChapter"></div>
+        <div class="rewind-button" @onclick="Prev30s"><span class="text-time">@settingService.RewindTime</span></div>
+        <div class="@PlayPauseState" @onclick="OnPlayPause"></div>
+        <div class="forward-button" @onclick="Next30s"><span class="text-time">@settingService.ForwardTime</span></div>
+        <div class="next-chapter-button" @onclick="NextChapter"></div>
+        <div class="control-separator"></div>
+        <div class="volume-control @VolumeClass">
+            <VolumeSlider />
+        </div>
     </div>
+
+    @if (DisplayChapters)
+    {
+        <Chapters File="@File" />
+    }
+
+
 </div>
 
 @code {
 
     AudioMetadata? File;
-    string PlayPauseState = "Play";
+    string PlayPauseState = "play-button";
+    string VolumeClass = "volume-button";
 
     uint CurrentTime { get; set; } = 0;
 
+    bool DisplayChapters = false;
+
+    bool DisplayWave = true;
     async Task OnPlayPause()
     {
-        if (PlayPauseState == "Play")
+        if (PlayPauseState == "play-button")
         {
             // start to play
             if (File != null)
             {
                 await playerService.Play(File);
-                PlayPauseState = "Pause";
+                PlayPauseState = "pause-button";
             }
 
         }
@@ -54,16 +73,16 @@
         {
             // pause playing
             await playerService.Pause();
-            PlayPauseState = "Play";
+            PlayPauseState = "play-button";
 
         }
 
 
     }
 
-    async Task GoToChapter(ChapterInfoDto chapter)
+    void ToggleChapters()
     {
-        await playerService.GoToTimestamp(chapter.StartTime);
+        DisplayChapters = !DisplayChapters;
     }
 
     override protected async Task OnAfterRenderAsync(bool firstRender)
@@ -73,35 +92,78 @@
             await playerService.Init();
             playerService.OnTimestampUpdated += () =>
             {
-                @* CurrentTime = t; *@
                 StateHasChanged();
             };
+            playerService.OnVolumeChange += OnVolumeChange;
+
+            settingService.WaveFrameSettingChanged += async (value) =>
+            {
+                DisplayWave = value;
+                await playerService.SetWaveRendering(value);
+
+            };
+            settingService.RewindTimeSettingChanged += (t) => { StateHasChanged(); };
+            settingService.ForwardTimeSettingChanged += (t) => { StateHasChanged(); };
+
+            await playerService.SetWaveRendering(settingService.WaveFrame);
+
         }
     }
 
-    override protected async Task OnInitializedAsync()
+    private void OnVolumeChange(float volume)
     {
-        queueService.OnQueueChanged += QueueChanged;
+        if (volume > .5)
+            VolumeClass = "volume-loud-button";
+        else if (volume > .25)
+            VolumeClass = "volume-low-button";
+        else
+            VolumeClass = "volume-button";
+
+    }
+
+
+    override protected void OnInitialized()
+    {
+        queueService.OnQueueChanged +=  () => QueueChanged();
+        QueueChanged();
     }
 
     private async void QueueChanged()
     {
-        File = await playerService.getCurrentFileInQueue();
+        File = playerService.getCurrentFileInQueue();
+        StateHasChanged();
+        await playerService.Load();
     }
+
 
     private async Task Next30s()
     {
-        await playerService.Next30s();
+        await playerService.Next30s(settingService.ForwardTime);
     }
 
     private async Task Prev30s()
     {
-        await playerService.Prev30s();
+
+        await playerService.Prev30s(settingService.RewindTime);
     }
 
-    [Microsoft.JSInterop.JSInvokableAttribute("UpdateCurrentTimestampFromJs")]
-    public static void UpdateCurrentTimestampFromJs(float time)
+    private async Task NextChapter()
     {
-        Console.WriteLine($" got a new time {time}");
+        var nextChapter = File?.Chapters.OrderBy(c => c.StartTime).FirstOrDefault(c => playerService.CurrentTimeAsMilliseconds <
+        c.StartTime);
+        if (nextChapter != null)
+            await playerService.GoToTimestamp(nextChapter.StartTime);
     }
+
+    private async Task PrevChapter()
+    {
+
+        var prevChapter = File?.Chapters.OrderByDescending(c => c.StartTime).FirstOrDefault(c =>
+        playerService.CurrentTimeAsMilliseconds > c.EndTime);
+        if (prevChapter != null)
+            await playerService.GoToTimestamp(prevChapter.StartTime);
+    }
+
+
+
 }

@@ -4,14 +4,14 @@
     <ul>
         @foreach (var q in service.Queue)
         {
-            <li>@q.Title</li>
+            <li>@q.Data.Title</li>
         }
     </ul>
 </div>
 
 @code {
 
-    override protected async Task OnInitializedAsync()
+    override protected void OnInitialized()
     {
         service.OnQueueChanged += QueueChanged;
     }

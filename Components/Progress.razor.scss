@@ -1,0 +1,101 @@
+.player-progress {
+    width: 100%;
+    position: relative;
+    --player-progress-height: 10px;
+    height: var(--player-progress-height);
+    min-height: var(--player-progress-height);
+    z-index: 3;
+
+    .player-progress-bar {
+        position: relative;
+        width: 100%;
+        height: 100%;
+
+        &:hover {
+            :not(.chapter-list) .progress-list {
+                transform: scaleY(1);
+            }
+        }
+
+        .chapter-progress.progress-list:hover {
+            transform: scaleY(1);
+        }
+
+        .progress-list {
+
+            transform: scaleY(.5);
+            transform-origin: center;
+            transition: all linear .05s;
+            height: 100%;
+
+
+            cursor: pointer;
+
+            position: absolute;
+            width: 100%;
+
+            .progress-background {
+                position: absolute;
+                width: 100%;
+
+                top: 0;
+                left: 0;
+                z-index: 100;
+                background-color: #FFFFFF33;
+                transform-origin: 0 0;
+                height: var(--player-progress-height)
+            }
+
+
+            .progress-seeking {
+                position: absolute;
+                width: 100%;
+
+                top: 0;
+                left: 0;
+                z-index: 100;
+                background-color: #FFFFFF66;
+                transform-origin: 0 0;
+                height: var(--player-progress-height)
+            }
+
+            .progress-current {
+                position: absolute;
+                width: 100%;
+
+                top: 0;
+                left: 0;
+                z-index: 100;
+                background-color: rgba(89, 74, 226, 1);
+                transform-origin: 0 0;
+                height: var(--player-progress-height)
+            }
+
+
+
+        }
+
+        .chapter-list {
+
+            position: relative;
+            width: 100%;
+            height: 100%;
+
+            .progress-background,
+            .progress-seeking,
+            .progress-current {
+                left: 1px;
+            }
+        }
+
+
+
+    }
+}
+
+
+.time-progress {
+    font-size: .9em;
+    opacity: .8;
+    z-index: 3;
+}

@@ -7,6 +7,7 @@ export var player = {
   get progressLists() { return document.querySelectorAll(".progress-list"); },
   get volumeSliders() { return document.getElementById("audio-player-blazor-volume") },
   progressListener: undefined,
+  loadedPosition: 0,
   waveRender: true,
   waveRenderListener: function (val) { },
   registerWaveRenderListener: function (externalListenerFunction) {
@@ -37,6 +38,7 @@ export var player = {
       audioSource.type = mime;
       this.audio.load();
       this.goToTimestamp(position);
+      this.loadedPosition = position;
       this.init();
       this.loaded = true;
       handleVolumeChange();
@@ -200,11 +202,15 @@ export var player = {
 
 
 function handleProgressEvent(event) {
-  // console.log(event.target.currentTime);
+  //console.log(event.target.currentTime);
   // console.log(player.audio.buffered);
 
-  player.dotNetReference.invokeMethodAsync('UpdateCurrentTimestampFromJs', event.target.currentTime);
-
+  if (event.target.currentTime === 0) {
+    player.goToTimestamp(player.loadedPosition);
+  }
+  else {
+    player.dotNetReference.invokeMethodAsync('UpdateCurrentTimestampFromJs', event.target.currentTime);
+  }
 }
 
 function handleProgressClick(event) {

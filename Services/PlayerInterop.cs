@@ -54,6 +54,12 @@ internal class PlayerInterop : IAsyncDisposable
         await module.InvokeVoidAsync("player.load", src, mime, position);
     }
 
+    public async ValueTask SetMediaSession(string title, string artist, string cover)
+    {
+        var module = await moduleTask.Value;
+        await module.InvokeVoidAsync("player.initMediaSession", title, artist, cover);
+    }
+
     public async ValueTask GoToTimestamp(uint time)
     {
         var module = await moduleTask.Value;

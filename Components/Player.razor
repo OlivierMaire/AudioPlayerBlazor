@@ -107,6 +107,11 @@
 
             await playerService.SetWaveRendering(settingService.WaveFrame);
 
+            playerService.OnPlaying += (bool state) =>
+            {
+                  PlayPauseState = "pause-button";
+            };
+
         }
     }
 

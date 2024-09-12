@@ -47,11 +47,30 @@ export var player = {
       this.waveformInit();
     }
   },
+  initMediaSession(title, artist, cover){
+    if ('mediaSession' in navigator) {
+
+      navigator.mediaSession.metadata = new MediaMetadata({
+      title: title,
+      artist: artist,
+      artwork: [
+          { src: cover},
+      ]
+      });
+  
+      navigator.mediaSession.setActionHandler('play', player.play );
+      navigator.mediaSession.setActionHandler('pause', player.pause );
+      // navigator.mediaSession.setActionHandler('seekbackward', function() {});
+      // navigator.mediaSession.setActionHandler('seekforward', function() {});
+      // navigator.mediaSession.setActionHandler('previoustrack', function() {});
+      // navigator.mediaSession.setActionHandler('nexttrack', function() {});
+  }
+  },
   play() {
-    this.audio.play();
+    player.audio.play();
   },
   pause() {
-    this.audio.pause();
+    player.audio.pause();
   },
   goToTimestamp(time) {
     this.audio.currentTime = time;

@@ -10,7 +10,7 @@ internal class MediaPlayerService
 
     public uint _currentTime = 0;
     public uint CurrentTimeAsMilliseconds => _currentTime;
-    
+
     public TimeSpan CurrentTime => TimeSpan.FromMilliseconds(_currentTime);
 
     public TimeSpan LastTimeUpdate = TimeSpan.FromMilliseconds(0);
@@ -26,7 +26,7 @@ internal class MediaPlayerService
 
     public bool IsPlaying { get; set; } = false;
 
-    // public event Action<bool>? OnPlaying;
+    public event Action<bool>? OnPlaying;
 
     // public async Task SetPlaying(bool value, )
     // {
@@ -55,8 +55,8 @@ internal class MediaPlayerService
         _currentTime = (uint)(time * 1000);
         OnTimestampUpdated?.Invoke();
 
-// Console.WriteLine($"{LastTimeUpdate} - {CurrentTime} = {(LastTimeUpdate - CurrentTime).TotalSeconds}");
-var lapse = (CurrentTime - LastTimeUpdate).TotalSeconds;
+        // Console.WriteLine($"{LastTimeUpdate} - {CurrentTime} = {(LastTimeUpdate - CurrentTime).TotalSeconds}");
+        var lapse = (CurrentTime - LastTimeUpdate).TotalSeconds;
         if (lapse > 30 || lapse < -30)
         {
             LastTimeUpdate = CurrentTime;
@@ -88,6 +88,11 @@ var lapse = (CurrentTime - LastTimeUpdate).TotalSeconds;
             var audiosource = file.AudioSourceUrl;
             var audiotype = file.AudioFormat.MimeList.FirstOrDefault() ?? string.Empty;
             await interop.Load(audiosource, audiotype, (CurrentFile?.LastTimestamp ?? 0) / 1000);
+
+            PictureInfoDto? AlbumCoverInfo = file.EmbeddedPictures.FirstOrDefault(p => p.PicType ==
+            PictureInfoDto.PIC_TYPE.Generic || p.PicType == PictureInfoDto.PIC_TYPE.Front);
+            string AlbumCover64 = Convert.ToBase64String(AlbumCoverInfo?.PictureData ?? []);
+            await interop.SetMediaSession(file.Title, file.Artist, $"data:{AlbumCoverInfo?.MimeType};base64,{AlbumCover64}");
             await Play(file);
         }
     }
@@ -95,6 +100,7 @@ var lapse = (CurrentTime - LastTimeUpdate).TotalSeconds;
     public async Task Play(AudioMetadata meta)
     {
         await interop.Play();
+        OnPlaying?.Invoke(true);
     }
     public async Task Pause()
     {

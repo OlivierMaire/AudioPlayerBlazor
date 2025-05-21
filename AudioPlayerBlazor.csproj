@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
 
@@ -12,7 +12,6 @@
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>MP3;MP4;M4B;M4A;Audio;Blazor;</PackageTags>
-    <PackageProjectUrl>https://github.com/OlivierMaire/AudioPlayerBlazor</PackageProjectUrl>
     <RepositoryUrl>https://github.com/OlivierMaire/AudioPlayerBlazor.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
 
@@ -25,7 +24,7 @@
 
   <ItemGroup>
     <PackageReference Include="Blazored.LocalStorage" Version="4.5.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.*" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="9.0.*" />
   </ItemGroup>
 
 
@@ -38,5 +37,5 @@
       <PrivateAssets>All</PrivateAssets>
     </PackageReference>
   </ItemGroup>
-
+  
 </Project>

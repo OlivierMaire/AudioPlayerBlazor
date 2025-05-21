@@ -11,7 +11,9 @@
 <Title />
 
 <div class="player">
-
+    @if (File != null && File.Chapters != null)
+    {
+        <div class="currently-playing">
 
     <div class="separator">
         @if (File != null)
@@ -19,6 +21,8 @@
             <canvas id="waveform" width="1" height="1"></canvas>
         }
     </div>
+</div>
+}
 
 
 
@@ -42,7 +46,6 @@
     {
         <Chapters File="@File" />
     }
-
 
 </div>
 

@@ -7,6 +7,7 @@ export var player = {
   get progressLists() { return document.querySelectorAll(".progress-list"); },
   get volumeSliders() { return document.getElementById("audio-player-blazor-volume") },
   progressListener: undefined,
+  wakeLock: null,
   waveRender: true,
   waveRenderListener: function (val) { },
   registerWaveRenderListener: function (externalListenerFunction) {
@@ -27,6 +28,8 @@ export var player = {
       this.progressbar.addEventListener('mouseout', handleSeekMouseout);
       this.volumeSliders.querySelector('.vertical-progress-handle').addEventListener('click', handleVolumeClick);
       this.audio.addEventListener('volumechange', handleVolumeChange);
+      this.audio.addEventListener('play', this.requestWakeLock);
+      this.audio.addEventListener('pause', this.releaseWakeLock);
     }
   },
   load(src, mime, position) {
@@ -67,6 +70,28 @@ export var player = {
     this.audio.pause();
     this.waveformInitDone = false;
   },
+  async requestWakeLock() {
+    try {
+      this.wakeLock = await navigator.wakeLock.request('screen');
+      console.log('Wake Lock is active');
+      
+      // Listen for the wake lock being released (e.g., if the tab is minimized)
+      this.wakeLock.addEventListener('release', () => {
+        console.log('Wake Lock was released');
+      });
+    } catch (err) {
+      console.error(`${err.name}, ${err.message}`);
+    }
+  },
+  // Call this function to release the wake lock when no longer needed
+   releaseWakeLock() {
+    if (this.wakeLock) {
+      this.wakeLock.release();
+      this.wakeLock = null;
+      console.log('Wake Lock released manually');
+    }
+  },
+
   SetWaveRendering(shouldRender) {
     this.waveRender = shouldRender;
     this.waveRenderListener(shouldRender);

@@ -10,6 +10,8 @@
     display: flex;
     flex-direction: column;
 
+    justify-content: flex-end;
+
     .separator {
         flex-grow: 1;
 
